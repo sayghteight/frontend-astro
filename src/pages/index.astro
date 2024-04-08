@@ -1,0 +1,63 @@
+---
+import BaseLayout from '@/layouts/Layout.astro'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+---
+
+<BaseLayout
+  title="Login RSS Sources"
+>
+
+  <Card className='mx-auto max-w-sm '>
+    <CardHeader>
+      <CardTitle className='text-2xl'>Login</CardTitle>
+      <CardDescription>
+        Enter your email below to login to your account.
+      </CardDescription>
+    </CardHeader>
+    <CardContent className='grid gap-4'>
+        <div class="grid gap-2">
+          <Label htmlFor="username"> Username </Label>
+          <Input id="username" name="username" type="text" placeholder='username' required />
+        </div>
+        <div class="grid gap-2">
+          <Label htmlFor="password"> Password </Label>
+          <Input id="password" name="password" type="password" required />
+        </div>
+        <Button id="loginBtn" className='w-full'>Sign in</Button>
+    </CardContent>
+  </Card>
+</BaseLayout>
+
+<script>
+  import AuthService from "@/global/services/authService.ts"
+  import { $ } from "@/lib/dom-selector"
+
+  const $loginBtn = $('#loginBtn')
+
+  if ($loginBtn) {
+    $loginBtn.onclick = async () => {
+      const $username = $('#username') as HTMLInputElement
+      const $password = $('#password') as HTMLInputElement
+      if (!$username && !$password) return;
+      const username: string | null = $username.value
+      const password: string | null = $password.value
+      if (username == null && password == null) return;
+      const success = await AuthService.login(username, password)
+      if (success) {
+        console.log("login")
+      } else {
+        console.error("error")
+      }
+    }
+  }
+</script>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/Layout.astro'
+
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+
+---
+
+<BaseLayout
+  title="Login RSS Sources"
+>
+
+<Table>
+    <TableCaption>A list of your recent RSS Added</TableCaption>
+    <TableHeader>
+        <TableRow>
+            <TableHead className='w-[100px]'>Name</TableHead>
+            <TableHead>URL Source</TableHead>
+            <TableHead>Active</TableHead>
+            <TableHead className='text-right'>Actions</TableHead>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        <TableRow>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+        </TableRow>
+    </TableBody>
+</Table>
