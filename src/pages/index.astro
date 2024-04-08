@@ -39,25 +39,34 @@ import { Label } from "@/components/ui/label"
 </BaseLayout>
 
 <script>
-  import AuthService from "@/global/services/authService.ts"
-  import { $ } from "@/lib/dom-selector"
+      import AuthService from "@/global/services/authService.ts"
+      import { $ } from "@/lib/dom-selector"
 
-  const $loginBtn = $('#loginBtn')
+      const $loginBtn = $('#loginBtn')
 
-  if ($loginBtn) {
-    $loginBtn.onclick = async () => {
-      const $username = $('#username') as HTMLInputElement
-      const $password = $('#password') as HTMLInputElement
-      if (!$username && !$password) return;
-      const username: string | null = $username.value
-      const password: string | null = $password.value
-      if (username == null && password == null) return;
-      const success = await AuthService.login(username, password)
-      if (success) {
-        console.log("login")
-      } else {
-        console.error("error")
+      if ($loginBtn) {
+        $loginBtn.onclick = async () => {
+          const $username = $('#username') as HTMLInputElement
+          const $password = $('#password') as HTMLInputElement
+          if (!$username && !$password) return;
+          const username: string | null = $username.value
+          const password: string | null = $password.value
+          if (username == null && password == null) return;
+          const success = await AuthService.login(username, password)
+          if (success) {
+            window.location.href = '/dashboard'
+          } else {
+            console.error("error")
+          }
+        }
       }
-    }
-  }
+
+      async function isAuthenticated() {
+        const authenticated = await AuthService.isAuthenticated()
+        if (authenticated) {
+            window.location.href = '/dashboard'
+        }
+      }
+
+      isAuthenticated()
 </script>

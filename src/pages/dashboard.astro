@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/Layout.astro'
+import { Button } from "@/components/ui/button"
 
 import {
     Table,
@@ -12,28 +13,49 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
+
 ---
 
 <BaseLayout
   title="Login RSS Sources"
 >
+<div class="container mx-auto">
+    <Table>
+        <TableCaption>A list of your recent RSS Added</TableCaption>
+        <TableHeader>
+            <TableRow>
+                <TableHead className='w-[100px]'>Name</TableHead>
+                <TableHead>URL Source</TableHead>
+                <TableHead>Active</TableHead>
+                <TableHead className='text-right'>Actions</TableHead>
+            </TableRow>
+        </TableHeader>
+        <TableBody id="rssTableBody"></TableBody>
+    </Table>
+</div>
 
-<Table>
-    <TableCaption>A list of your recent RSS Added</TableCaption>
-    <TableHeader>
-        <TableRow>
-            <TableHead className='w-[100px]'>Name</TableHead>
-            <TableHead>URL Source</TableHead>
-            <TableHead>Active</TableHead>
-            <TableHead className='text-right'>Actions</TableHead>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-        </TableRow>
-    </TableBody>
-</Table>
+<script>
+    import { getListRSS } from "@/global/services/rssService.ts";
+
+    async function renderRSSList() {
+        try {
+            const rssSources = await getListRSS();
+            const tableBody = document.querySelector('#rssTableBody');
+
+            rssSources.forEach(source => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${source.name}</td>
+                    <td>${source.url}</td>
+                    <td>${source.enabled ? 'Yes' : 'No'}</td>
+                    <td class="text-right"><Button variant="outline">Button</Button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error('Error fetching RSS sources:', error);
+        }
+    }
+
+    window.onload = renderRSSList;
+</script>
