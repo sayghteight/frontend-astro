@@ -1,0 +1,12 @@
+---
+import BaseLayout from '@/layouts/Layout.astro'
+const { id } = Astro.params;
+const idRss = parseInt(id!) || 0;
+import { Editar } from '@/components/Edit'
+
+
+---
+
+<BaseLayout title="RSS">
+    
+<Editar idRss={idRss} client:load />
