@@ -10,3 +10,17 @@ import { Editar } from '@/components/Edit'
 <BaseLayout title="RSS">
     
 <Editar idRss={idRss} client:load />
+
+<script>
+    
+    import AuthService from "@/global/services/authService.ts"
+
+    async function isAuthenticated() {
+        const authenticated = await AuthService.isAuthenticated()
+        if (!authenticated) {
+            window.location.href = '/'
+        }
+      }
+
+      isAuthenticated()
+</script>

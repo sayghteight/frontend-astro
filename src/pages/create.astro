@@ -8,3 +8,17 @@ import { Create } from '@/components/Create'
 <BaseLayout title="RSS">
     
 <Create client:load />
+
+<script>
+    
+    import AuthService from "@/global/services/authService.ts"
+
+    async function isAuthenticated() {
+        const authenticated = await AuthService.isAuthenticated()
+        if (!authenticated) {
+            window.location.href = '/'
+        }
+      }
+
+      isAuthenticated()
+</script>
