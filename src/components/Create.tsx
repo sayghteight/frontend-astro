@@ -22,9 +22,12 @@ export function Create() {
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         const newValue = type === 'checkbox' ? checked : value;
-        setFormData({ ...formData, [name]: newValue});
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: newValue
+        }));
     }
-
+    
         
     const goToBackCreate = (url: string) => {
         window.location.href = url; // Cambia la URL actual
@@ -35,7 +38,7 @@ export function Create() {
         e.preventDefault();
 
         if (!formData.name.trim() || !formData.url.trim()) {
-            alert('Name and URL are required fields');
+            alert('Title and URL are required fields');
             return;
         }
 
@@ -67,22 +70,22 @@ export function Create() {
             <CardHeader>
                 <CardTitle className="text-2xl">Crear nueva fuente RSS</CardTitle>
                 <CardDescription>
-                    Darás de alta una nueva fuente de RSS.
+                    Daras de alta una nueva fuente de RSS.
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
                 <form onSubmit={handleSubmit}>
                     <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" name="name" type="text" placeholder="Titulo RSS" required />
+                        <Input id="name" name="name" type="text" value={formData.name} placeholder="Titulo RSS" onChange={handleChange} required />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="url" name="url" type="text" placeholder="URL RSS" required />
+                        <Label htmlFor="url">URL</Label>
+                        <Input id="url" name="url" type="text" value={formData.url} placeholder="URL RSS" onChange={handleChange} required />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="name">enabled</Label>
-                        <Input id="name" name="name" type="checkbox" checked={formData.enabled} onChange={handleChange}/>
+                        <Input id="enabled" name="enabled" type="checkbox" checked={formData.enabled} onChange={handleChange}/>
                     </div>
                     <Button type="submit" className='w-full'>Crear</Button>
                     
