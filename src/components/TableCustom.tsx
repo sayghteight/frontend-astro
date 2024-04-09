@@ -9,6 +9,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+
+import config from "@/global/config/config";
+
 import { useEffect, useState } from 'react'
 
 interface RSS {
@@ -23,7 +26,7 @@ export function TableCustom() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://127.0.0.1:8000/api/getRSS');
+            const response = await fetch(`${config.apiUrl}/getRSS`);
             const json = await response.json();
             setRssSources(json);
           };
@@ -37,7 +40,7 @@ export function TableCustom() {
 
     const deleteRSS = async (id: number) => {
         try {
-            await fetch(`http://127.0.0.1:8000/api/delete/${id}`, {
+            await fetch(`${config.apiUrl}/delete/${id}`, {
                 method: 'DELETE',
             });
             // Actualiza la lista de fuentes de RSS después de eliminar
@@ -73,7 +76,7 @@ export function TableCustom() {
                                 <TableCell>{item.enabled ? 'Yes' : 'No'}</TableCell>
                                 <TableCell className='text-right'>
                                     <a href={`rss-${item.id}`} onClick={() => goToRSS(`rss-${item.id}`)}>
-                                        <Button variant="outline">Articulos</Button>
+                                        <Button variant="outline">Ver Articulos</Button>
                                     </a>
                                     <a href={`edit-${item.id}`}>
                                         <Button variant="secondary">Edit</Button>

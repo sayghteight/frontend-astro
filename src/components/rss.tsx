@@ -1,7 +1,7 @@
 import { getFeed } from '@/global/services/rssService';
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
-
+import config from '@/global/config/config';
 import {
     Table,
     TableBody,
@@ -18,7 +18,7 @@ export function RSS({ idRss }: React.PropsWithoutRef<{ idRss: number }>) {
 
     useEffect(() => {
         const fetchDataAndUrl = async () => {
-            const urlResponse = await fetch(`http://127.0.0.1:8000/api/find/${idRss}`, {
+            const urlResponse = await fetch(`${config.apiUrl}/find/${idRss}`, {
                 method: 'GET',
             });
             const urlJson = await urlResponse.json();

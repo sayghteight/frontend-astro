@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import config from "@/global/config/config";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -38,7 +39,7 @@ export function Create() {
             return;
         }
 
-        fetch('http://127.0.0.1:8000/api/create', {
+        fetch(`${config.apiUrl}/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

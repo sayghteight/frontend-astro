@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import config from "@/global/config/config";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -20,7 +21,7 @@ export function Editar({ idRss }: React.PropsWithoutRef<{ idRss: number }>) {
     useEffect(() => {
         // Aquí puedes realizar una llamada a la API para obtener los datos del ítem a editar
         // Supongamos que la API devuelve un objeto con los datos del ítem
-        fetch(`http://127.0.0.1:8000/api/find/${idRss}`)
+        fetch(`${config.apiUrl}/find/${idRss}`)
             .then(response => response.json())
             .then(data => {
                 setFormData({
@@ -50,7 +51,7 @@ export function Editar({ idRss }: React.PropsWithoutRef<{ idRss: number }>) {
             return;
         }
 
-        fetch(`http://127.0.0.1:8000/api/update/${idRss}`, { 
+        fetch(`${config.apiUrl}/update/${idRss}`, { 
             method: 'PUT', 
             headers: {
                 'Content-Type': 'application/json'

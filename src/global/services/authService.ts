@@ -1,11 +1,13 @@
 import axios from 'axios';
+import config from '@/global/config/config';
 
 class AuthService 
 {
+
     async login(username: string, password: string): Promise<boolean> 
     {
         try {
-            const response = await axios.post<{ token: string }>('http://localhost:8000/api/login_check', { username, password });
+            const response = await axios.post<{ token: string }>(`${config.apiUrl}/login_check`, { username, password });
             localStorage.setItem('token', response.data.token);
             return true;
           } catch (error) {
